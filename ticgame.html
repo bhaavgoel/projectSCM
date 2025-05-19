@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,4 +215,46 @@
       });
     });
 
+
+
+    // Start Game
+    function startGame() {
+      const nameX = document.getElementById("playerX").value.trim();
+      const nameO = document.getElementById("playerO").value.trim();
+
+      if (nameX) playerNames.X = nameX;
+      if (nameO) playerNames.O = nameO;
+
+      resetGame();
+      gameActive = true;
+      info.textContent = `${playerNames[currentPlayer]}'s turn (${currentPlayer})`;
+      logBox.innerHTML = '';
+      logAction("Game started");
+    }
+
+    // Reset Game
+    function resetGame() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      currentPlayer = 'X';
+      gameActive = true;
+      info.textContent = `${playerNames[currentPlayer]}'s turn (${currentPlayer})`;
+
+      cells.forEach(cell => {
+        cell.textContent = "";
+        cell.classList.remove("winner");
+      });
+
+      logAction("Board reset");
+    }
+
+    // Win Check
+    function checkWin() {
+      for (let combo of winningCombinations) {
+        const [a, b, c] = combo;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          return combo;
+        }
+      }
+      return null;
+    }
 
