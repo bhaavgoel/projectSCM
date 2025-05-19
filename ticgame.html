@@ -1,1 +1,181 @@
-#tictactoegame
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Tic Tac Toe</title>
+  <style>
+    /* Basic Styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    /* Game Area */
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .cell {
+      background-color: #fff;
+      border: 2px solid #444;
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cell:hover {
+      background-color: #e0e0e0;
+    }
+
+    .cell.winner {
+      background-color: #d4fcd4;
+      animation: flash 0.5s ease infinite alternate;
+    }
+
+    @keyframes flash {
+      0% { background-color: #d4fcd4; }
+      100% { background-color: #a8f0a8; }
+    }
+
+    /* Info Section */
+    #info {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #222;
+    }
+
+    #reset {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #reset:hover {
+      background-color: #555;
+    }
+
+    /* Player Input */
+    .player-inputs {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .player-inputs input {
+      padding: 5px 10px;
+      font-size: 1rem;
+      width: 120px;
+    }
+
+    .log {
+      margin-top: 20px;
+      width: 320px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 0.9rem;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .log-entry {
+      margin-bottom: 5px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Tic Tac Toe Game</h1>
+
+  <div class="player-inputs">
+    <input type="text" id="playerX" placeholder="Player X" />
+    <input type="text" id="playerO" placeholder="Player O" />
+    <button onclick="startGame()">Start</button>
+  </div>
+
+  <div class="game-container">
+    <div id="board">
+      <!-- 9 cells -->
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+
+    <div id="info">Enter player names and click Start</div>
+    <button id="reset" onclick="resetGame()">Reset Game</button>
+
+    <div class="log" id="log-box">
+      <!-- Game log entries appear here -->
+    </div>
+  </div>
+
+  <footer>😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈</footer>
+
+  <script>
+    // Global Variables
+    let currentPlayer = 'X';
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let gameActive = false;
+    let playerNames = { X: "Player X", O: "Player O" };
+
+    const cells = document.querySelectorAll('.cell');
+    const info = document.getElementById('info');
+    const logBox = document.getElementById('log-box');
+
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
