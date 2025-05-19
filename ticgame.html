@@ -1,1 +1,15 @@
-#tictactoegame
+
+    // Game Logger
+    function logAction(msg) {
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      logBox.appendChild(entry);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // Auto-focus on input
+    document.getElementById("playerX").focus();
+  </script>
+</body>
+</html>
