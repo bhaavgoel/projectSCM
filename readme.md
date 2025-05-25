@@ -30,4 +30,7 @@ A simple yet elegant **Tic Tac Toe game** built using **HTML, CSS, and JavaScrip
 
  **Clone or Download** this repository.
 
+## 📸 Screenshot
+
+![Tic Tac Toe Gameplay](./screenshot.png)
 
