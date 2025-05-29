@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Advanced Tic Tac Toe</title>
   <style>
-    /* Basic Styling */
+    
     * {
       box-sizing: border-box;
       margin: 0;
@@ -27,7 +27,7 @@
       color: #333;
     }
 
-    /* Game Area */
+    
     .game-container {
       display: flex;
       flex-direction: column;
@@ -90,7 +90,7 @@
       background-color: #555;
     }
 
-    /* Player Input */
+    
     .player-inputs {
       margin-top: 20px;
       display: flex;
@@ -231,7 +231,7 @@
       logAction("Game started");
     }
 
-    // Reset Game
+    
     function resetGame() {
       board = ["", "", "", "", "", "", "", "", ""];
       currentPlayer = 'X';
@@ -246,7 +246,7 @@
       logAction("Board reset");
     }
 
-    // Win Check
+    
     function checkWin() {
       for (let combo of winningCombinations) {
         const [a, b, c] = combo;
@@ -257,7 +257,7 @@
       return null;
     }
 
-    // Game Logger
+    
     function logAction(msg) {
       const entry = document.createElement("div");
       entry.className = "log-entry";
@@ -266,7 +266,7 @@
       logBox.scrollTop = logBox.scrollHeight;
     }
 
-    // Auto-focus on input
+    
     document.getElementById("playerX").focus();
   </script>
 </body>
